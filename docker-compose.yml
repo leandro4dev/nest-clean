@@ -10,6 +10,3 @@ services:
       - POSTGRESQL_USERNAME=postgres
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=nestclean
-      - PGDATA=/data/postgres
-    volumes: 
-      - ./data/pg:/data/postgres
