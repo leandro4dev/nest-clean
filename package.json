@@ -46,6 +46,7 @@
     "@types/node": "^20.3.1",
     "@types/passport-jwt": "^3.0.13",
     "@vitest/coverage-v8": "^0.34.6",
+    "dotenv": "^16.3.1",
     "eslint": "^8.54.0",
     "git-commit-msg-linter": "^5.0.4",
     "prisma": "^5.6.0",
