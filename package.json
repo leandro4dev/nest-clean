@@ -1,6 +1,6 @@
 {
   "name": "nest-clean",
-  "type": "module",
+  "type": "commonjs",
   "version": "0.0.1",
   "description": "",
   "author": "",
