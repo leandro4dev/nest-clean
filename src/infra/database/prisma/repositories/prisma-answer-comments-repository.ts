@@ -2,27 +2,57 @@ import { PaginatinParams } from "@/core/repositories/pagination-params";
 import { AnswerCommentsRepository } from "@/domain/forum/application/repositories/answer-comments-repository";
 import { AnswerComments } from "@/domain/forum/enterprise/entities/answer-comments";
 import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma.service";
+import { PrismaAnswerCommentsMapper } from "../mappers/prisma-answer-comments-mapper";
 
 @Injectable()
 export class PrismaAnswerCommentsRepository
   implements AnswerCommentsRepository
 {
-  create(answerComment: AnswerComments): Promise<void> {
-    throw new Error("Method not implemented.");
+  constructor(private prisma: PrismaService) {}
+
+  async findById(id: string): Promise<AnswerComments | null> {
+    const answerComment = await this.prisma.comment.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!answerComment) {
+      return null;
+    }
+
+    return PrismaAnswerCommentsMapper.toDomain(answerComment);
   }
 
-  findManyByAnswerId(
-    questionId: string,
-    params: PaginatinParams,
+  async findManyByAnswerId(
+    answerId: string,
+    { page }: PaginatinParams,
   ): Promise<AnswerComments[]> {
-    throw new Error("Method not implemented.");
+    const answerComments = await this.prisma.comment.findMany({
+      where: {
+        answerId,
+      },
+      take: 20,
+      skip: (page - 1) * 20,
+    });
+
+    return answerComments.map(PrismaAnswerCommentsMapper.toDomain);
   }
 
-  findById(id: string): Promise<AnswerComments | null> {
-    throw new Error("Method not implemented.");
+  async create(answerComment: AnswerComments): Promise<void> {
+    const data = PrismaAnswerCommentsMapper.toPrisma(answerComment);
+
+    await this.prisma.comment.create({
+      data,
+    });
   }
 
-  delete(answerComments: AnswerComments): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(answerComments: AnswerComments): Promise<void> {
+    await this.prisma.comment.delete({
+      where: {
+        id: answerComments.id.toString(),
+      },
+    });
   }
 }

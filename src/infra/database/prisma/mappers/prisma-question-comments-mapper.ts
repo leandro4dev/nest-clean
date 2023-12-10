@@ -2,7 +2,7 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { QuestionComments } from "@/domain/forum/enterprise/entities/question-comments";
 import { Prisma, Comment as PrismaComment } from "@prisma/client";
 
-export class PrismaQuestionComments {
+export class PrismaQuestionCommentsMapper {
   static toDomain(raw: PrismaComment): QuestionComments {
     if (!raw.questionId) {
       throw new Error("Invalid comment type");
