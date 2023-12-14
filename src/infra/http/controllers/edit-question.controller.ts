@@ -9,7 +9,7 @@ import {
 } from "@nestjs/common";
 import { z } from "zod";
 import { ZodValidationPipe } from "../pipes/zod-validation-pipe";
-import { UserPaylod } from "@/infra/auth/jwt.strategy";
+import { UserPayload } from "@/infra/auth/jwt.strategy";
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import { ResourceNotFoundError } from "@/domain/forum/application/use-cases/errors/resource-not-found-error";
 import { NotAllowedError } from "@/domain/forum/application/use-cases/errors/not-allowed-error";
@@ -31,7 +31,7 @@ export class EditQuestionController {
   @HttpCode(204)
   async handle(
     @Body(bodyValidationPipe) body: EditQuestionBodySchema,
-    @CurrentUser() user: UserPaylod,
+    @CurrentUser() user: UserPayload,
     @Param("id") questionId: string,
   ) {
     const { title, content } = body;

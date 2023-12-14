@@ -9,7 +9,7 @@ import { DeleteQuestionUseCase } from "@/domain/forum/application/use-cases/dele
 import { NotAllowedError } from "@/domain/forum/application/use-cases/errors/not-allowed-error";
 import { ResourceNotFoundError } from "@/domain/forum/application/use-cases/errors/resource-not-found-error";
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
-import { UserPaylod } from "@/infra/auth/jwt.strategy";
+import { UserPayload } from "@/infra/auth/jwt.strategy";
 
 @Controller("/questions/:id")
 export class DeleteQuestionController {
@@ -18,7 +18,7 @@ export class DeleteQuestionController {
   @Delete()
   @HttpCode(200)
   async handle(
-    @CurrentUser() user: UserPaylod,
+    @CurrentUser() user: UserPayload,
     @Param("id") questionId: string,
   ) {
     const userId = user.sub;
@@ -27,8 +27,6 @@ export class DeleteQuestionController {
       authorId: userId,
       questionId,
     });
-
-    console.log(result);
 
     if (result.isLeft()) {
       const error = result.value;

@@ -8,7 +8,7 @@ const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
 });
 
-export type UserPaylod = z.infer<typeof tokenPayloadSchema>;
+export type UserPayload = z.infer<typeof tokenPayloadSchema>;
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -22,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: UserPaylod) {
+  async validate(payload: UserPayload) {
     return tokenPayloadSchema.parse(payload);
   }
 }

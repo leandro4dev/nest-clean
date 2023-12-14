@@ -8,6 +8,7 @@ import { Test } from "@nestjs/testing";
 import request from "supertest";
 import { QuestionFactory } from "test/factories/make-question";
 import { StudentFactory } from "test/factories/make-student";
+import { beforeEach } from "vitest";
 
 describe("Edit question (E2E)", () => {
   let app: INestApplication;
@@ -16,7 +17,7 @@ describe("Edit question (E2E)", () => {
   let studentFactory: StudentFactory;
   let questionFactory: QuestionFactory;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
       providers: [StudentFactory, QuestionFactory],

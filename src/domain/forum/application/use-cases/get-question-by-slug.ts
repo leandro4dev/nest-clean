@@ -22,8 +22,6 @@ export class GetQuestionBySlugUseCase {
   async execute({
     slug,
   }: GetQuestionBySlugUseCaseRequest): Promise<GetQuestionBySlugUseCaseResponse> {
-    console.log(slug);
-
     const question = await this.questionsRepository.findBySlug(slug);
 
     if (!question) {
