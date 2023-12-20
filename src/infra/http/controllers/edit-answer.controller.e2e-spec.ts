@@ -52,8 +52,10 @@ describe("Edit Answer (E2E)", () => {
       questionId: question.id,
     });
 
+    const answerId = answer.id.toString();
+
     const response = await request(app.getHttpServer())
-      .put(`/answers/${answer.id}`)
+      .put(`/answers/${answerId}`)
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
         content: "New Example Content",

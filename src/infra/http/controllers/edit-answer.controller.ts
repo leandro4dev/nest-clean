@@ -29,9 +29,9 @@ export class EditAnswerController {
   @Put()
   @HttpCode(204)
   async handle(
-    @Param("id") answerId: string,
     @CurrentUser() user: UserPayload,
     @Body(bodyValidationPipe) body: EditAnswerBodySchema,
+    @Param("id") answerId: string,
   ) {
     const { content } = body;
     const userId = user.sub;
