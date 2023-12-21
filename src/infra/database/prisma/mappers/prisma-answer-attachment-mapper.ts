@@ -8,9 +8,12 @@ export class PrismaAnswerAttachmentMapper {
       throw new Error("Invalid attachment type");
     }
 
-    return AnswerAttachment.create({
-      attachmentId: new UniqueEntityID(raw.id),
-      answerId: new UniqueEntityID(raw.answerId),
-    });
+    return AnswerAttachment.create(
+      {
+        attachmentId: new UniqueEntityID(raw.id),
+        answerId: new UniqueEntityID(raw.answerId),
+      },
+      new UniqueEntityID(raw.id),
+    );
   }
 }

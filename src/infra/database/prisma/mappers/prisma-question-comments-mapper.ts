@@ -8,13 +8,16 @@ export class PrismaQuestionCommentsMapper {
       throw new Error("Invalid comment type");
     }
 
-    return QuestionComments.create({
-      content: raw.content,
-      authorId: new UniqueEntityID(raw.authorId),
-      questionId: new UniqueEntityID(raw.questionId),
-      createdAt: raw.createdAt,
-      updatedAt: raw.updatedAt,
-    });
+    return QuestionComments.create(
+      {
+        content: raw.content,
+        authorId: new UniqueEntityID(raw.authorId),
+        questionId: new UniqueEntityID(raw.questionId),
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
+      },
+      new UniqueEntityID(raw.id),
+    );
   }
 
   static toPrisma(
