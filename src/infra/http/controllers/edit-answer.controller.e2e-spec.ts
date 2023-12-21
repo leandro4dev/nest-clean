@@ -1,4 +1,3 @@
-import { Slug } from "@/domain/forum/enterprise/entities/value-objects/slug";
 import { AppModule } from "@/infra/app.module";
 import { DatabaseModule } from "@/infra/database/database.module";
 import { PrismaService } from "@/infra/database/prisma/prisma.service";
@@ -41,13 +40,10 @@ describe("Edit Answer (E2E)", () => {
     const accessToken = jwt.sign({ sub: user.id.toString() });
 
     const question = await questionFactory.makePrismaQuestion({
-      title: "Question 01",
-      slug: Slug.create("question-01"),
       authorId: user.id,
     });
 
     const answer = await answerFactory.makePrismaAnswer({
-      content: "Example Answer",
       authorId: user.id,
       questionId: question.id,
     });
@@ -61,14 +57,13 @@ describe("Edit Answer (E2E)", () => {
         content: "New Example Content",
       });
 
-    expect(response.statusCode).toBe(204);
-
     const asnwerOnDatabase = await prisma.answer.findFirst({
       where: {
         content: "New Example Content",
       },
     });
 
+    expect(response.statusCode).toBe(204);
     expect(asnwerOnDatabase).toBeTruthy();
   });
 });

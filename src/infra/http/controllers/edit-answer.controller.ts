@@ -11,8 +11,6 @@ import { ZodValidationPipe } from "../pipes/zod-validation-pipe";
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import { UserPayload } from "@/infra/auth/jwt.strategy";
 import { EditAnswerUseCase } from "@/domain/forum/application/use-cases/edit-answer";
-import { NotAllowedError } from "@/domain/forum/application/use-cases/errors/not-allowed-error";
-import { ResourceNotFoundError } from "@/domain/forum/application/use-cases/errors/resource-not-found-error";
 
 const editAnswerBodySchema = z.object({
   content: z.string(),
@@ -44,16 +42,7 @@ export class EditAnswerController {
     });
 
     if (result.isLeft()) {
-      const error = result.value;
-
-      switch (error.constructor) {
-        case ResourceNotFoundError:
-          throw new ResourceNotFoundError();
-        case NotAllowedError:
-          throw new NotAllowedError();
-        default:
-          throw new BadRequestException(error.message);
-      }
+      throw new BadRequestException();
     }
   }
 }
