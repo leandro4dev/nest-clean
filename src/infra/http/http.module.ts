@@ -19,6 +19,18 @@ import { AnswerQuestionUseCase } from "@/domain/forum/application/use-cases/answ
 import { AnswerQuestionController } from "./controllers/answer-question.controller";
 import { EditAnswerUseCase } from "@/domain/forum/application/use-cases/edit-answer";
 import { EditAnswerController } from "./controllers/edit-answer.controller";
+import { DeleteAnswerUseCase } from "@/domain/forum/application/use-cases/delete-answer";
+import { DeleteAnswerController } from "./controllers/delete-answer.controller";
+import { FetchQuestionAnswerUseCase } from "@/domain/forum/application/use-cases/fetch-question-answers";
+import { FetchQuestionAnswerController } from "./controllers/fetch-question-answers.controller";
+import { ChooseQuestionBestAnswerController } from "./controllers/choose-question-best-answer.controller";
+import { ChooseQuestionBestAnswerUseCase } from "@/domain/forum/application/use-cases/choose-question-best-answer";
+import { CommentOnQuestionController } from "./controllers/comment-on-question.controller";
+import { CommentOnQuestionUseCase } from "@/domain/forum/application/use-cases/comment-on-question";
+import { DeleteQuestionCommentUseCase } from "@/domain/forum/application/use-cases/delete-question-comment";
+import { DeleteQuestionCommentController } from "./controllers/delete-question-comment.controller";
+import { CommentOnAnswerUseCase } from "@/domain/forum/application/use-cases/comment-on-answer";
+import { CommentOnAnswerController } from "./controllers/comment-on-answer.controller";
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -32,6 +44,12 @@ import { EditAnswerController } from "./controllers/edit-answer.controller";
     DeleteQuestionController,
     AnswerQuestionController,
     EditAnswerController,
+    DeleteAnswerController,
+    FetchQuestionAnswerController,
+    ChooseQuestionBestAnswerController,
+    CommentOnQuestionController,
+    CommentOnAnswerController,
+    DeleteQuestionCommentController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -43,6 +61,12 @@ import { EditAnswerController } from "./controllers/edit-answer.controller";
     DeleteQuestionUseCase,
     AnswerQuestionUseCase,
     EditAnswerUseCase,
+    DeleteAnswerUseCase,
+    FetchQuestionAnswerUseCase,
+    ChooseQuestionBestAnswerUseCase,
+    CommentOnQuestionUseCase,
+    CommentOnAnswerUseCase,
+    DeleteQuestionCommentUseCase,
   ],
 })
 export class HttpModule {}
