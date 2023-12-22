@@ -2,7 +2,7 @@ import { beforeEach, expect } from "vitest";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { InMemoryQuestionsCommentsRepository } from "test/repositories/in-memory-question-comments-repository";
 import { FetchQuestionCommentsUseCase } from "./fetch-question-comments";
-import { makeQuestionComment } from "test/factories/make-quesion-comments";
+import { makeQuestionComment } from "test/factories/make-question-comments";
 
 let inMemoryQuestionsCommentsRepository: InMemoryQuestionsCommentsRepository;
 let sut: FetchQuestionCommentsUseCase;
