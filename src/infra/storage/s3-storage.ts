@@ -2,7 +2,6 @@ import {
   UploadParams,
   Uploader,
 } from "@/domain/forum/application/storage/uploader";
-
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { EnvService } from "../env/env.service";
 import { randomUUID } from "node:crypto";
@@ -13,11 +12,9 @@ export class S3Storage implements Uploader {
   private client: S3Client;
 
   constructor(private envService: EnvService) {
-    const accountId = envService.get("AWS_ACCOUNT_ID");
-
     this.client = new S3Client({
-      endpoint: `s3://arn:aws:s3:sa-east-1:${accountId}:accesspoint/storage`,
-      region: "sa-east-1",
+      endpoint: envService.get("AWS_ACCESS_POINT"),
+      region: envService.get("AWS_ACCESS_REGION"),
       credentials: {
         accessKeyId: envService.get("AWS_ACCESS_KEY_ID"),
         secretAccessKey: envService.get("AWS_SECRET_ACCESS_KEY"),
