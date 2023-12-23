@@ -9,7 +9,7 @@ import { InMemoryNotificationRepository } from "test/repositories/in-memory-noti
 import { makeQuestion } from "test/factories/make-question";
 import { SpyInstance } from "vitest";
 import { waitFor } from "test/utils/wait-for";
-import { makeQuestionComment } from "test/factories/make-quesion-comments";
+import { makeQuestionComment } from "test/factories/make-question-comments";
 import { InMemoryQuestionsCommentsRepository } from "test/repositories/in-memory-question-comments-repository";
 import { OnCommentQuestion } from "./on-comment-question";
 

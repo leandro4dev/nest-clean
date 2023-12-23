@@ -1,7 +1,7 @@
 import { beforeEach } from "vitest";
 import { InMemoryQuestionsCommentsRepository } from "test/repositories/in-memory-question-comments-repository";
 import { DeleteQuestionCommentUseCase } from "./delete-question-comment";
-import { makeQuestionComment } from "test/factories/make-quesion-comments";
+import { makeQuestionComment } from "test/factories/make-question-comments";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { NotAllowedError } from "./errors/not-allowed-error";
 
