@@ -73,18 +73,16 @@ describe("Fetch Answer Comments (E2E)", () => {
       .set("Authorization", `Bearer ${accessToken}`)
       .send();
 
-    console.log(response.body);
-
     expect(response.statusCode).toBe(200);
-    // expect(response.body).toEqual({
-    //   answersComments: expect.arrayContaining([
-    //     expect.objectContaining({
-    //       content: "Comment 01",
-    //     }),
-    //     expect.objectContaining({
-    //       content: "Comment 02",
-    //     }),
-    //   ]),
-    // });
+    expect(response.body).toEqual({
+      answersComments: expect.arrayContaining([
+        expect.objectContaining({
+          content: "Comment 01",
+        }),
+        expect.objectContaining({
+          content: "Comment 02",
+        }),
+      ]),
+    });
   });
 });
