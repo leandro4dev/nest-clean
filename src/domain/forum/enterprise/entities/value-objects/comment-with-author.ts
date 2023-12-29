@@ -23,7 +23,7 @@ export class CommentWithAuthor extends ValueObject<CommentWithAuthorProps> {
     return this.props.author;
   }
 
-  get authorid() {
+  get authorId() {
     return this.props.authorId;
   }
 
