@@ -32,7 +32,7 @@ describe("Fetch Question Answers (E2E)", () => {
   });
 
   test("[GET] /questions/:questionId/answers", async () => {
-    const user = await studentFactory.makePrismaStudent();
+    const user = await studentFactory.makePrismaStudent({ name: "John Doe" });
 
     const accessToken = jwt.sign({ sub: user.id.toString() });
 
@@ -65,9 +65,11 @@ describe("Fetch Question Answers (E2E)", () => {
       answers: expect.arrayContaining([
         expect.objectContaining({
           content: "Answer 1",
+          authorName: "John Doe",
         }),
         expect.objectContaining({
           content: "Answer 2",
+          authorName: "John Doe",
         }),
       ]),
     });
