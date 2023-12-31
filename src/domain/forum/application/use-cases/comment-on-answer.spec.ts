@@ -5,10 +5,12 @@ import { CommentOnAnswerUseCase } from "./comment-on-answer";
 import { makeAnswer } from "test/factories/make-answer";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
 
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let inMemoryAnswersCommentsRepository: InMemoryAnswersCommentsRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
 
 let sut: CommentOnAnswerUseCase;
 
@@ -17,11 +19,16 @@ describe("Create Comment On Answer", () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
 
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
+      inMemoryStudentsRepository,
     );
 
-    inMemoryAnswersCommentsRepository = new InMemoryAnswersCommentsRepository();
+    inMemoryAnswersCommentsRepository = new InMemoryAnswersCommentsRepository(
+      inMemoryStudentsRepository,
+    );
 
     sut = new CommentOnAnswerUseCase(
       inMemoryAnswersRepository,

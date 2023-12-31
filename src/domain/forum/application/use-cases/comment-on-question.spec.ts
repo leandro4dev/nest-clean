@@ -5,7 +5,11 @@ import { InMemoryQuestionsCommentsRepository } from "test/repositories/in-memory
 import { makeQuestion } from "test/factories/make-question";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { InMemoryQuestionsAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
+import { InMemoryAttachmentRepository } from "test/repositories/in-memory-attachment-repository";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
 
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository;
 let inMemoryQuestionsCommentsRepository: InMemoryQuestionsCommentsRepository;
@@ -17,12 +21,18 @@ describe("Create Comment On Question", () => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionsAttachmentsRepository();
 
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+
+    inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
+
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentRepository,
+      inMemoryStudentsRepository,
     );
 
     inMemoryQuestionsCommentsRepository =
-      new InMemoryQuestionsCommentsRepository();
+      new InMemoryQuestionsCommentsRepository(inMemoryStudentsRepository);
 
     sut = new CommentOnQuestionUseCase(
       inMemoryQuestionsRepository,

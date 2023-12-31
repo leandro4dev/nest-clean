@@ -6,18 +6,28 @@ import { beforeEach, expect } from "vitest";
 import { NotAllowedError } from "./errors/not-allowed-error";
 import { InMemoryQuestionsAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
 import { makeQuestionAttachments } from "test/factories/make-question-attachments";
+import { InMemoryAttachmentRepository } from "test/repositories/in-memory-attachment-repository";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
 
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository;
 let sut: DeleteQuestionUseCase;
 
 describe("Delete Question", () => {
   beforeEach(() => {
+    inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
+
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionsAttachmentsRepository();
 
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentRepository,
+      inMemoryStudentsRepository,
     );
 
     sut = new DeleteQuestionUseCase(inMemoryQuestionsRepository); // system under test

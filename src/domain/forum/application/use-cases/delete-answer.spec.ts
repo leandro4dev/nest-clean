@@ -5,7 +5,9 @@ import { makeAnswer } from "test/factories/make-answer";
 import { beforeEach, expect } from "vitest";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
 
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: DeleteAnswerUseCase;
@@ -15,8 +17,11 @@ describe("Delete Answer", () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
 
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
+      inMemoryStudentsRepository,
     );
 
     sut = new DeleteAnswerUseCase(inMemoryAnswersRepository); // system under test
