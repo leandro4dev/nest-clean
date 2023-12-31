@@ -3,9 +3,13 @@ import { makeQuestion } from "test/factories/make-question";
 import { FetchRecentQuestionsUseCase } from "./fetch-recent-questions";
 import { beforeEach } from "vitest";
 import { InMemoryQuestionsAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
+import { InMemoryAttachmentRepository } from "test/repositories/in-memory-attachment-repository";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
+let inMemoryStudentRepository: InMemoryStudentsRepository;
 let sut: FetchRecentQuestionsUseCase;
 
 describe("Fetch Recent Questions", () => {
@@ -13,8 +17,14 @@ describe("Fetch Recent Questions", () => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionsAttachmentsRepository();
 
+    inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
+
+    inMemoryStudentRepository = new InMemoryStudentsRepository();
+
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentRepository,
+      inMemoryStudentRepository,
     );
 
     sut = new FetchRecentQuestionsUseCase(inMemoryQuestionsRepository); // system under test
