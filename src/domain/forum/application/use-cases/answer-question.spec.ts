@@ -3,7 +3,9 @@ import { AnswerQuestionUseCase } from "./answer-question";
 import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-repository";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
 
+let inMemoryStudentRepository: InMemoryStudentsRepository;
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: AnswerQuestionUseCase;
@@ -12,8 +14,12 @@ describe("Create Answer", () => {
   beforeEach(() => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
+
+    inMemoryStudentRepository = new InMemoryStudentsRepository();
+
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
+      inMemoryStudentRepository,
     );
     sut = new AnswerQuestionUseCase(inMemoryAnswersRepository); // system under test
   });

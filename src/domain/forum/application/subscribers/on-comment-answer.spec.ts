@@ -15,7 +15,11 @@ import { waitFor } from "test/utils/wait-for";
 import { OnCommentAnswer } from "./on-comment-answer";
 import { InMemoryAnswersCommentsRepository } from "test/repositories/in-memory-answer-comments-repository";
 import { makeAnswerComment } from "test/factories/make-answer-comments";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
+import { InMemoryAttachmentRepository } from "test/repositories/in-memory-attachment-repository";
 
+let inMemoryStudentRepository: InMemoryStudentsRepository;
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let inMemoryQuestionRepository: InMemoryQuestionsRepository;
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
@@ -34,8 +38,13 @@ describe("On Comment Answer", () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
 
+    inMemoryStudentRepository = new InMemoryStudentsRepository();
+
+    inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
+
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
+      inMemoryStudentRepository,
     );
 
     inMemoryQuestionAttachmentsRepository =
@@ -43,12 +52,15 @@ describe("On Comment Answer", () => {
 
     inMemoryQuestionRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentRepository,
+      inMemoryStudentRepository,
     );
 
     inMemoryNotificationRepository = new InMemoryNotificationRepository();
 
-    inMemoryAnswersCommentsRepository = new InMemoryAnswersCommentsRepository();
-
+    inMemoryAnswersCommentsRepository = new InMemoryAnswersCommentsRepository(
+      inMemoryStudentRepository,
+    );
     sendNotificationUseCase = new SendNotificationUseCase(
       inMemoryNotificationRepository,
     );

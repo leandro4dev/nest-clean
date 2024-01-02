@@ -13,7 +13,11 @@ import { OnQuestionBestAnswerChosen } from "./on-question-best-answer-chosen";
 import { makeAnswer } from "test/factories/make-answer";
 import { makeQuestion } from "test/factories/make-question";
 import { waitFor } from "test/utils/wait-for";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
+import { InMemoryAttachmentRepository } from "test/repositories/in-memory-attachment-repository";
 
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
+let inMemoryStudentRepository: InMemoryStudentsRepository;
 let inMemoryQuestionRepository: InMemoryQuestionsRepository;
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
@@ -31,8 +35,13 @@ describe("On Question Best Answer Chosen", () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
 
+    inMemoryStudentRepository = new InMemoryStudentsRepository();
+
+    inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
+
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
+      inMemoryStudentRepository,
     );
 
     inMemoryQuestionAttachmentsRepository =
@@ -40,6 +49,8 @@ describe("On Question Best Answer Chosen", () => {
 
     inMemoryQuestionRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentRepository,
+      inMemoryStudentRepository,
     );
 
     inMemoryNoticiationRepository = new InMemoryNotificationRepository();

@@ -12,7 +12,11 @@ import { waitFor } from "test/utils/wait-for";
 import { makeQuestionComment } from "test/factories/make-question-comments";
 import { InMemoryQuestionsCommentsRepository } from "test/repositories/in-memory-question-comments-repository";
 import { OnCommentQuestion } from "./on-comment-question";
+import { InMemoryAttachmentRepository } from "test/repositories/in-memory-attachment-repository";
+import { InMemoryStudentsRepository } from "test/repositories/in-memory-students-repository";
 
+let inMemoryStudentRepository: InMemoryStudentsRepository;
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let inMemoryQuestionRepository: InMemoryQuestionsRepository;
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository;
 let inMemoryNotificationRepository: InMemoryNotificationRepository;
@@ -26,17 +30,23 @@ let sendNotificationExecuteSpy: SpyInstance<
 
 describe("On Comment Question", () => {
   beforeEach(() => {
+    inMemoryStudentRepository = new InMemoryStudentsRepository();
+
+    inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
+
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionsAttachmentsRepository();
 
     inMemoryQuestionRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentRepository,
+      inMemoryStudentRepository,
     );
 
     inMemoryNotificationRepository = new InMemoryNotificationRepository();
 
     inMemoryQuestionsCommentsRepository =
-      new InMemoryQuestionsCommentsRepository();
+      new InMemoryQuestionsCommentsRepository(inMemoryStudentRepository);
 
     sendNotificationUseCase = new SendNotificationUseCase(
       inMemoryNotificationRepository,
