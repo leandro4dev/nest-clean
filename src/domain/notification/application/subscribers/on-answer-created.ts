@@ -1,7 +1,7 @@
 import { DomainEvents } from "@/core/events/domain-events";
 import { EventHandler } from "@/core/events/event-handler";
-import { AnswerCreatedEvent } from "../../enterprise/events/answer-created-event";
-import { QuestionsRespository } from "../repositories/question-repository";
+import { QuestionsRespository } from "@/domain/forum/application/repositories/question-repository";
+import { AnswerCreatedEvent } from "@/domain/forum/enterprise/events/answer-created-event";
 import { SendNotificationUseCase } from "@/domain/notification/application/use-cases/send-notification";
 import { Injectable } from "@nestjs/common";
 

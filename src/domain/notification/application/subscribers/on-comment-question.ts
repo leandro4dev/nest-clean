@@ -1,8 +1,8 @@
 import { EventHandler } from "@/core/events/event-handler";
 import { SendNotificationUseCase } from "@/domain/notification/application/use-cases/send-notification";
 import { DomainEvents } from "@/core/events/domain-events";
-import { CommentQuestionEvent } from "../../enterprise/events/comment-question-event";
-import { QuestionsRespository } from "../repositories/question-repository";
+import { QuestionsRespository } from "@/domain/forum/application/repositories/question-repository";
+import { CommentQuestionEvent } from "@/domain/forum/enterprise/events/comment-question-event";
 
 export class OnCommentQuestion implements EventHandler {
   constructor(
