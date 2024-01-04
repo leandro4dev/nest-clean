@@ -1,14 +1,14 @@
 import { InMemoryNotificationRepository } from "test/repositories/in-memory-notifications-repository";
-import { ReadNotification } from "./read-notification";
+import { ReadNotificationUseCase } from "./read-notification";
 import { makeNotification } from "test/factories/make-notification";
 
 let inMemoryNotificationRepository: InMemoryNotificationRepository;
-let sut: ReadNotification;
+let sut: ReadNotificationUseCase;
 
 describe("Read Notificaiton", () => {
   beforeEach(() => {
     inMemoryNotificationRepository = new InMemoryNotificationRepository();
-    sut = new ReadNotification(inMemoryNotificationRepository);
+    sut = new ReadNotificationUseCase(inMemoryNotificationRepository);
   });
 
   it("should be able to read notification", async () => {
