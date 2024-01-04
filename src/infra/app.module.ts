@@ -4,7 +4,6 @@ import { AuthModule } from "./auth/auth.module";
 import { HttpModule } from "./http/http.module";
 import { envSchema } from "./env/env";
 import { EnvService } from "./env/env.service";
-import { EnvModule } from "./env/env.module";
 import { EventsModule } from "./events/events.module";
 
 @Module({
@@ -15,7 +14,6 @@ import { EventsModule } from "./events/events.module";
     }),
     AuthModule,
     HttpModule,
-    EnvModule,
     EventsModule,
   ],
   providers: [EnvService],

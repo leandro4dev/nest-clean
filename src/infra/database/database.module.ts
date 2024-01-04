@@ -51,12 +51,12 @@ import { NotificationRepository } from "@/domain/notification/application/reposi
       useClass: PrismaAnswerCommentsRepository,
     },
     {
-      provide: AttachementRespository,
-      useClass: PrismaAttachmentRepository,
-    },
-    {
       provide: NotificationRepository,
       useClass: PrismaNotificationRepository,
+    },
+    {
+      provide: AttachementRespository,
+      useClass: PrismaAttachmentRepository,
     },
   ],
   exports: [
@@ -68,8 +68,8 @@ import { NotificationRepository } from "@/domain/notification/application/reposi
     AnswersRepository,
     AnswerAttachmentsRepository,
     AnswerCommentsRepository,
-    AttachementRespository,
     NotificationRepository,
+    AttachementRespository,
   ],
 })
 export class DatabaseModule {}
