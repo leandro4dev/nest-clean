@@ -20,13 +20,10 @@ export class PrismaQuestionsRepository implements QuestionsRespository {
 
   async findDetailsBySlug(slug: string): Promise<QuestionDetails | null> {
     const cacheHit = await this.cache.get(`question:${slug}:details`);
-
     if (cacheHit) {
       const cacheData = JSON.parse(cacheHit);
-
       return cacheData;
     }
-
     const question = await this.prisma.question.findUnique({
       where: {
         slug,
@@ -36,18 +33,14 @@ export class PrismaQuestionsRepository implements QuestionsRespository {
         attachments: true,
       },
     });
-
     if (!question) {
       return null;
     }
-
     const questionDetails = PrismaQuestionDetailsMapper.toDomain(question);
-
     await this.cache.set(
       `question:${slug}:details`,
       JSON.stringify(questionDetails),
     );
-
     return questionDetails;
   }
 
